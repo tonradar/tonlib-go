@@ -96,7 +96,7 @@ func (client *Client) executeAsynchronously(data interface{}) (*TONResult, error
 	cs := C.CString(string(req))
 	defer C.free(unsafe.Pointer(cs))
 
-	fmt.Println("call 1", string(req))
+	fmt.Println("call", string(req))
 	C.tonlib_client_json_send(client.client, cs)
 	result := C.tonlib_client_json_receive(client.client, DEFAULT_TIMEOUT)
 
