@@ -70,7 +70,7 @@ type TonInitRequest struct {
 func NewClient(tonCnf *TonInitRequest, config Config, timeout int64) (*Client, error) {
 	rand.Seed(time.Now().UnixNano())
 
-	client := Client{client: C.tonlib_client_json_create(), config: config, timeout: timeout,}
+	client := Client{client: C.tonlib_client_json_create(), config: config, timeout: timeout}
 	optionsInfo, err := client.Init(&tonCnf.Options)
 	//resp, err := client.executeAsynchronously(tonCnf)
 	if err != nil {
@@ -89,6 +89,7 @@ func NewClient(tonCnf *TonInitRequest, config Config, timeout int64) (*Client, e
 execute ton-lib asynchronously
 */
 func (client *Client) executeAsynchronously(data interface{}) (*TONResult, error) {
+	fmt.Println("Hellooo")
 	req, err := json.Marshal(data)
 	if err != nil {
 		return &TONResult{}, err
@@ -118,7 +119,7 @@ func (client *Client) executeAsynchronously(data interface{}) (*TONResult, error
 	if st, ok := updateData["@type"]; ok && st == "updateSendLiteServerQuery" {
 		err = json.Unmarshal(resB, &updateData)
 		if err == nil {
-			_, err = client.OnLiteServerQueryResult(updateData["data"].([]byte), updateData["id"].(JSONInt64), )
+			_, err = client.OnLiteServerQueryResult(updateData["data"].([]byte), updateData["id"].(JSONInt64))
 		}
 	}
 	if st, ok := updateData["@type"]; ok && st == "updateSyncState" {

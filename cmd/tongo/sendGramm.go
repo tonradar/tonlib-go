@@ -61,9 +61,9 @@ func sendGramm(cmd *cobra.Command, args []string) {
 
 	// prepare input key
 	inputKey := tonlib.InputKey{
-		Type: "inputKeyRegular",
+		Type:          "inputKeyRegular",
 		LocalPassword: base64.StdEncoding.EncodeToString(tonlib.SecureBytes(password)),
-		Key: pKey,
+		Key:           pKey,
 	}
 	_, err = tonClient.WalletInit(&inputKey)
 	if err != nil {

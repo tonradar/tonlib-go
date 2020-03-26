@@ -55,7 +55,7 @@ func runSmcMethod(cmd *cobra.Command, args []string) {
 
 	// parse extra params
 	params := []tonlib.TvmStackEntry{}
-	for _, arg := range (args[3:]) {
+	for _, arg := range args[3:] {
 		params = append(params, tonlib.NewTvmStackEntryNumber(tonlib.NewTvmNumberDecimal(arg)))
 	}
 

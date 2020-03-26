@@ -153,7 +153,7 @@ func TestClient_ExportKey(t *testing.T) {
 			pKey.PublicKey,
 			pKey.Secret,
 		},
-	}, )
+	})
 	if err != nil {
 		t.Fatal("Ton export key error", err)
 	}

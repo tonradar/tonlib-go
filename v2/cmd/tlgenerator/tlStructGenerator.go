@@ -181,7 +181,7 @@ func generateStructsFromTnEntities(
 
 			// sort params to enshure the same params order in each generation
 			sort.Slice(itemInfo.Properties, func(i, j int) bool {
-				if (itemInfo.Properties[i].Name > itemInfo.Properties[j].Name){
+				if itemInfo.Properties[i].Name > itemInfo.Properties[j].Name {
 					return false
 				}
 				return true
@@ -343,7 +343,7 @@ func generateStructsFromTnEntities(
 
 			// sort params to enshure the same params order in each generation
 			sort.Slice(itemInfo.Properties, func(i, j int) bool {
-				if (itemInfo.Properties[i].Name > itemInfo.Properties[j].Name){
+				if itemInfo.Properties[i].Name > itemInfo.Properties[j].Name {
 					return false
 				}
 				return true

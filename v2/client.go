@@ -363,7 +363,7 @@ func (client *Client) QueryEstimateFees(id int64, ignoreChksig bool) (*QueryFees
 }
 
 // for now - a few requests may works wrong, cause it some times get respose form previos reqest for a few times
-func (client *Client) UpdateTonConnection() (error) {
+func (client *Client) UpdateTonConnection() error {
 	_, err := client.Close()
 	if err != nil {
 		return err
