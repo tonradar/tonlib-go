@@ -853,7 +853,7 @@ func (rawMessage *RawMessage) MessageType() string {
 // @param msgData
 // @param source
 // @param value
-func NewRawMessage(bodyHash string, createdLt JSONInt64, destination *AccountAddress, fwdFee JSONInt64, ihrFee JSONInt64, msgData MsgData, source *AccountAddress, value JSONInt64) *RawMessage {
+func NewRawMessage(bodyHash string, createdLt JSONInt64, destination *AccountAddress, fwdFee JSONInt64, ihrFee JSONInt64, msgData MsgDataRaw, source *AccountAddress, value JSONInt64) *RawMessage {
 	rawMessageTemp := RawMessage{
 		tonCommon:   tonCommon{Type: "raw.message"},
 		BodyHash:    bodyHash,
