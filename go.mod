@@ -1,4 +1,4 @@
-module github.com/mercuryoio/tonlib-go
+module github.com/tonradar/tonlib-go
 
 go 1.13
 
