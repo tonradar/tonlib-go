@@ -833,7 +833,7 @@ type RawMessage struct {
 	Destination *AccountAddress `json:"destination"` //
 	FwdFee      JSONInt64       `json:"fwd_fee"`     //
 	IhrFee      JSONInt64       `json:"ihr_fee"`     //
-	MsgData     MsgData        `json:"msg_data"`    //
+	MsgData     MsgDataRaw      `json:"msg_data"`    //
 	Source      *AccountAddress `json:"source"`      //
 	Value       JSONInt64       `json:"value"`       //
 }
@@ -1533,7 +1533,7 @@ func NewMsgDataEncryptedText(text string) *MsgDataEncryptedText {
 // MsgDataEncrypted
 type MsgDataEncrypted struct {
 	tonCommon
-	Data   MsgData        `json:"data"`   //
+	Data   MsgData         `json:"data"`   //
 	Source *AccountAddress `json:"source"` //
 }
 
@@ -1560,7 +1560,7 @@ func NewMsgDataEncrypted(data MsgData, source *AccountAddress) *MsgDataEncrypted
 type MsgDataDecrypted struct {
 	tonCommon
 	Data  MsgData `json:"data"`  //
-	Proof string   `json:"proof"` //
+	Proof string  `json:"proof"` //
 }
 
 // MessageType return the string telegram-type of MsgDataDecrypted
@@ -1632,7 +1632,7 @@ func NewMsgDataDecryptedArray(elements []MsgDataDecrypted) *MsgDataDecryptedArra
 type MsgMessage struct {
 	tonCommon
 	Amount      JSONInt64       `json:"amount"`      //
-	Data        MsgData        `json:"data"`        //
+	Data        MsgData         `json:"data"`        //
 	Destination *AccountAddress `json:"destination"` //
 	PublicKey   string          `json:"public_key"`  //
 }
