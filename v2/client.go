@@ -180,7 +180,7 @@ func (client *Client) executeAsynchronously(data interface{}) (*TONResult, error
 			return &TONResult{}, err
 		}
 		if res != "" {
-			// parse and return reponse that has been catched while sync
+			updateData = TONResponse{}
 			resB := []byte(res)
 			err = json.Unmarshal(resB, &updateData)
 			if err != nil {
@@ -188,7 +188,6 @@ func (client *Client) executeAsynchronously(data interface{}) (*TONResult, error
 			}
 			return &TONResult{Data: updateData, Raw: resB}, err
 		}
-		return client.executeAsynchronously(data)
 	}
 	return &TONResult{Data: updateData, Raw: resB}, err
 }
@@ -228,6 +227,9 @@ func (client *Client) Sync(syncState SyncState) (string, error) {
 	}
 	cs := C.CString(string(req))
 	defer C.free(unsafe.Pointer(cs))
+	if client.clientLogging {
+		fmt.Println("call (sync)", string(req))
+	}
 	C.tonlib_client_json_send(client.client, cs)
 	for {
 		result := C.tonlib_client_json_receive(client.client, DEFAULT_TIMEOUT)
@@ -260,24 +262,26 @@ func (client *Client) Sync(syncState SyncState) (string, error) {
 				Type      string    `json:"@type"`
 				SyncState SyncState `json:"sync_state"`
 			}{}
-			res := C.GoString(result)
+			res = C.GoString(result)
 			resB := []byte(res)
 			err = json.Unmarshal(resB, &syncResp)
 			if client.clientLogging {
 				fmt.Println("sync result #2: ", string(resB))
 			}
-			if err != nil {
-				return "", err
-			}
+		}
+		if syncResp.Type == "ok" {
+			// continue updating
+			continue
 		}
 		if syncResp.Type == "ton.blockIdExt" {
-			return "", nil
+			// continue updating
+			continue
 		}
 		if syncResp.Type == "updateSyncState" {
 			// continue updating
 			continue
 		}
-		// response on previously not sync request
+
 		return res, nil
 	}
 }
