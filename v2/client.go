@@ -364,17 +364,15 @@ func (client *Client) QueryEstimateFees(id int64, ignoreChksig bool) (*QueryFees
 
 // for now - a few requests may works wrong, cause it some times get respose form previos reqest for a few times
 func (client *Client) UpdateTonConnection() error {
-	_, err := client.Close()
-	if err != nil {
-		return err
-	}
+	client.Close()
+
 	// destroy old c.ient
 	client.Destroy()
 
 	// create new C client
 	client.client = C.tonlib_client_json_create()
 	// set log level
-	err = client.executeSetLogLevel(client.tonLogging)
+	err := client.executeSetLogLevel(client.tonLogging)
 	if err != nil {
 		return err
 	}
