@@ -188,10 +188,16 @@ func (client *Client) Sync(syncState SyncState) (string, error) {
 	C.tonlib_client_json_send(client.client, cs)
 	for {
 		result := C.tonlib_client_json_receive(client.client, DEFAULT_TIMEOUT)
+
+		num := 0
 		for result == nil {
+			if num >= DefaultRetries {
+				return "", fmt.Errorf("Client.executeAsynchronously: exided limit of retries to get json response from TON C`s lib. ")
+			}
 			fmt.Println("empty response. next attempt")
 			time.Sleep(1 * time.Second)
 			result = C.tonlib_client_json_receive(client.client, DEFAULT_TIMEOUT)
+			num += 1
 		}
 		syncResp := struct {
 			Type      string    `json:"@type"`
