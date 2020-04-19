@@ -424,7 +424,7 @@ type InitialAccountState interface{ MessageType() string }
 
 type AccountState RawAccountState
 
-type MsgData interface{ MessageType() string }
+type MsgData interface{}
 type DnsEntryData string
 
 type Action interface{ MessageType() string }
